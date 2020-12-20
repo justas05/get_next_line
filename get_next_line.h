@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
+/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# define MAX_FILES 65536
+
+# if !defined (BUFFER_SIZE) || BUFFER_SIZE <= 0
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+# include <stdlib.h>
+
+typedef				long long ssize_t;
+
+int					get_next_line(int fd, char **line);
+
+size_t				ft_strlen(const char *str);
+char				*ft_strchr(const char *s, int c);
+void				*ft_memcpy(void *dest, const void *src, size_t n);
+void				*ft_realloc(void *ptr, size_t old_size, size_t size);
+void				*ft_flush(char **line, char *buf, size_t len);
+
+typedef struct		s_line_buf
+{
+	char			buf[BUFFER_SIZE];
+	size_t			start;
+	ssize_t			readed;
+}					t_line_buf;
+
+#endif
