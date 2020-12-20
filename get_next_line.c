@@ -47,16 +47,14 @@ int		get_next_line(int fd, char **line)
 	if (fd < 0)
 		return (-1);
 	request_new_line = 1;
-	while (fds[fd].readed != -1)
+	while (fds[fd].readed > 0)
 	{
 		if (!fds[fd].start && request_new_line == 1)
 		{
 			fds[fd].readed = read(fd, fds[fd].buf, BUFFER_SIZE);
 			request_new_line = 0;
 		}
-		else if (fds[fd].readed == 0)
-			return (0);
-		else if (ft_extract_line(fds, line, fd) > 0)
+		if (ft_extract_line(fds, line, fd) > 0)
 			return (1);
 		else
 			request_new_line = 1;

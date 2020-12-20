@@ -21,8 +21,7 @@
 # endif
 
 # include <stdlib.h>
-
-typedef				long long ssize_t;
+# include <unistd.h>
 
 int					get_next_line(int fd, char **line);
 
