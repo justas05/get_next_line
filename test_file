@@ -1,4 +1,5 @@
-/* ************************************************************************** */
+
+hell/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
@@ -47,18 +48,19 @@ int		get_next_line(int fd, char **line)
 	if (fd < 0)
 		return (-1);
 	request_new_line = 1;
-	*line = malloc(1);
-	while (fds[fd].readed > 0)
+	while (fds[fd].readed != -1)
 	{
 		if (!fds[fd].start && request_new_line == 1)
 		{
 			fds[fd].readed = read(fd, fds[fd].buf, BUFFER_SIZE);
 			request_new_line = 0;
 		}
+		else if (fds[fd].readed == 0)
+			return (0);
 		else if (ft_extract_line(fds, line, fd) > 0)
 			return (1);
 		else
 			request_new_line = 1;
 	}
-	return ((fds[fd].readed != 0) * -1);
+	return (-1);
 }
