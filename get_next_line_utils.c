@@ -35,17 +35,31 @@ void		*ft_memchr(const void *s, int c, size_t n)
 	return (NULL);
 }
 
-void		*ft_memcpy(void *dest, const void *src, size_t n)
+void		*ft_memmove(void *dest, const void *src, size_t num)
 {
-	unsigned char *p1;
-	unsigned char *p2;
+	unsigned char	*from;
+	unsigned char	*to;
 
-	p1 = (unsigned char*)dest;
-	p2 = (unsigned char*)src;
-	if (!p1 && !p2 && n)
-		return (NULL);
-	while (n--)
-		*p1++ = *p2++;
+	from = (unsigned char *)src;
+	to = (unsigned char *)dest;
+	if (from < to)
+	{
+		from += num - 1;
+		to += num - 1;
+		while (num)
+		{
+			*to-- = *from--;
+			--num;
+		}
+	}
+	else if (from > to)
+	{
+		while (num)
+		{
+			*to++ = *from++;
+			--num;
+		}
+	}
 	return (dest);
 }
 
@@ -65,7 +79,7 @@ void		*ft_realloc(void *ptr, size_t old_size, size_t size)
 		res = malloc(size);
 		if (res)
 		{
-			ft_memcpy(res, ptr, old_size);
+			ft_memmove(res, ptr, old_size);
 			free(ptr);
 		}
 	}
@@ -80,7 +94,7 @@ void		*ft_flush(char **line, char *buf, size_t len)
 	*line = (char*)ft_realloc(*line, line_len + 1, line_len + len + 1);
 	if (*line)
 	{
-		ft_memcpy(*line + line_len, buf, len);
+		ft_memmove(*line + line_len, buf, len);
 		*(*line + line_len + len) = 0;
 	}
 	return (*line);
