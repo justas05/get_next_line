@@ -22,14 +22,16 @@ size_t		ft_strlen(const char *str)
 	return (res);
 }
 
-char		*ft_strchr(const char *s, int c)
+void		*ft_memchr(const void *s, int c, size_t n)
 {
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char*)s);
-		++s;
-	}
+	unsigned char *ptr;
+
+	ptr = (unsigned char*)s;
+	while (n--)
+		if (*ptr != (unsigned char)c)
+			++ptr;
+		else
+			return (ptr);
 	return (NULL);
 }
 
